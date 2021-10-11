@@ -1,4 +1,4 @@
-# if.05.61 SYP System Planning and Project Development -- Repository Template
+# Sea of Thieves Discord Companion
 ## Aim
 The given repository shall be used by your team throughout the whole project to store all necessary project artifacts.
 
