@@ -45,19 +45,19 @@ We weren't able to identify any risks.
 ## Planning
 
 ### Milestones:
-* The project environment is set up and fully functional for all team members
-* The bot is running
-* The bot can process querys and output a basic description of the found article
-* The bot also sends an image of the infotable
-* The users can get further information by reacting to the bot's message
-* The bot sends screenshots of tables when appropriate
-* The bot can dynamically integrate images into it's answer
+1. The project environment is set up and fully functional for all team members
+2. The bot is running
+3. The bot can process querys and output a basic description of the found article
+4. The bot also sends an image of the infotable
+5. The users can get further information by reacting to the bot's message
+6. The bot sends screenshots of tables when appropriate
+7. The bot can dynamically integrate images into it's answer
 
 ### Is there a Start Date?
-No.
+No, we dont have one yet.
 
 ### Is there a End Date?
-No.
+No, we dont have one yet.
 
 ### When does implementation work start?
-It starts when we are done planning.
+It starts when we are done setting up our working environment.
