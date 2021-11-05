@@ -59,6 +59,6 @@ If the bot really takes off and we have the bot running on a small server, it li
 ### Is there a Start Date?
 January 2022
 ### Is there a End Date?
-
+July 2022
 ### When does implementation work start?
 It starts when we are done setting up our working environment.
