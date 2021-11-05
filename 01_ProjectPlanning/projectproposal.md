@@ -42,9 +42,9 @@ The output has to be printed in a way the user can get the information faster th
 
 ### Opportunities:
 Looking something up will not break the user's immersion.
-Using the bot will be much simpler and faster than the established procedure and it could become an established feature for the community that everyone uses.<br>
+Using the bot will be much simpler and faster than the established procedure and it could become an established feature for the community that everyone uses.
 ### Risks:
-If the bot really takes off and we have the bot running on a small server, it likely will not be able to keep up with the amount of queries entered. Lots of downtime could cost a lot of users. <br>If this really happens we would have to rent a server.
+If the bot really takes off and we have the bot running on a small server, it likely will not be able to keep up with the amount of queries entered. Lots of downtime could cost a lot of users.
 ## Planning
 ### Milestones:
 | Milestone                                                                    	| Status      	| Finish Date 	|
