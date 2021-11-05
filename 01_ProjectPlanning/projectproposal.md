@@ -6,32 +6,34 @@ We want to create a companion discord bot for the game "Sea of Thieves" which wo
 
 
 ## Initial Situation
-Right now Sea of Thieves is a game where very few things get explained to. Basically the user have to figure everything out by themselves. This can be challgenging sometimes, so the internet helped with a fandom wiki. This helps alot, but has a few flaws:
-* The user have to start their browser mid game, causing a lag spike and hurting the game experience.
-
-* The Wiki Search tool is not really efficient as it gives the user way too much articels for one search attempt. 99% of the time the first article is the one the user is searching.
+Right now Sea of Thieves is a game where very few things get explained to. Basically the user have to figure everything out by themselves. This can be challgenging sometimes, so the internet helped with a fandom wiki. This helps alot, but has a few flaws:<br>
+The user have to start their browser mid game, causing a lag spike and hurting the game experience.
+The Wiki Search tool is not really efficient as it gives the user way too much articels for one search attempt. 99% of the time the first article is the one the user is searching.
 ![](eyeofreach.png)
 as shown in the example, the first article is the right one and the others are just cosmetic items and give no relevant, quick information about the weapon itself
+<br>
+<br>
+ Most wiki pages contain a lot of unnesesary information
 
-* Most wiki pages contain a lot of unnesesary information
-
-    * Example: 
-    ![](ghostFleetWiki1.PNG)
-    This is what the user gets when they search for informations about the ghost fleet - world event
-    ![](ghostFleetWiki2.PNG)
-    And for the relevant loot drop - information the user would have to scroll through half the article.
-    which is not very efficient.
-  
-* Others in the group can not see the information the user just researched unless the user sends a link via a discord channel or some other means of communication.
+### Example: 
+This is what the user gets when they search for informations about the ghost fleet - world event
+![](ghostFleetWiki1.PNG)
+<br>
+<br>
+And for the relevant loot drop - information the user would have to scroll through half the article.
+which is not very efficient.
+![](ghostFleetWiki2.PNG)
+<br>
+<br>  
+Others in the group can not see the information the user just researched unless the user sends a link via a discord channel or some other means of communication.
 
 ## Problem
 In Sea of Thieves the players objective is to be the fastest and the smartest in the battle. But sometimes the player lacks one small piece of information, that would be battledeciding. Looking it up in the wiki is very time inefficient as we saw before.
 
-## By using a discord bot a lot of these flaws could be eliminated: 
-* Users mostly play in groups and commmunicate via Discord. If users could research in that app they would not have to open a browser.
-* A discord bot could handle quick researches very fast and eliminate all the time inefficiencies by giving the user the first search result in the wiki and trimming all unnecessary information away. 
-
-* Because the bot outputs it's findings to a discord channel others in the group can easily view the information as well.
+## By using a discord bot a lot of these flaws could be eliminated
+Users mostly play in groups and commmunicate via Discord. If users could research in that app they would not have to open a browser.
+A discord bot could handle quick researches very fast and eliminate all the time inefficiencies by giving the user the first search result in the wiki and trimming all unnecessary information away. 
+Because the bot outputs it's findings to a discord channel others in the group can easily view the information as well.
   
 
 ## General Conditions and Constraints
@@ -50,15 +52,12 @@ The ouptput has to be printed in a way in a way where the user can gather the in
 
 ## Opportunities and Risks
 
-Opportunities:
-* Looking something up will not break the user's immersion.
-* Using the bot is much simpler and faster than the established procedure.
-* We make an established bot for the community that everyone uses
-* We take over the world
-  
-Risks:
-* If it really takes off and we have the bot running on a small server, it will not be able to meet demand and will crash. Lots of downtime will cost alot of users. 
-* If it really has alot of downtime we will rent a server that can handle demand. unfortunately we have no idea to finance that, other than out of our pockets
+### Opportunities:
+Looking something up will not break the user's immersion.
+Using the bot is much simpler and faster than the established procedure and it could get an established feature for the community that everyone uses.<br>
+And we take over the world
+### Risks:
+If it really takes off and we have the bot running on a small server, it will not be able to meet demand and will crash. Lots of downtime will cost alot of users. <br>If that really happens we have to rent a server. Unfortunately we have no idea to finance that, other than out of our pockets.
 
 
 ## Planning
