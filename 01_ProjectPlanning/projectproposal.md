@@ -6,37 +6,39 @@ We want to create a companion discord bot for the game "Sea of Thieves" which wo
 
 
 ## Initial Situation
-Right now Sea of Thieves is a game where very few things get explained to you. Basically you have to figure everything out by yourself. This can be challgenging sometimes, so the internet helped with a fandom wiki. This helps alot, but has a few flaws:
-* You have to start your browser mid game, causing a lag spike and hurting the game experience.
+Right now Sea of Thieves is a game where very few things get explained to. Basically the user have to figure everything out by themselves. This can be challgenging sometimes, so the internet helped with a fandom wiki. This helps alot, but has a few flaws:
+* The user have to start their browser mid game, causing a lag spike and hurting the game experience.
 
-* The Wiki Search tool is not really efficient as it gives you way too much articels for one search attempt. 99% of the time the first article is the one you are searching.
+* The Wiki Search tool is not really efficient as it gives the user way too much articels for one search attempt. 99% of the time the first article is the one the user is searching.
 ![](eyeofreach.png)
-as you see in the example, the first article is the right one and the others are just cosmetic items and give no relevant, quick information about the weapon itself
+as shown in the example, the first article is the right one and the others are just cosmetic items and give no relevant, quick information about the weapon itself
 
-* Every wiki page has way too much information itself
+* Most wiki pages contain a lot of unnesesary information
 
     * Example: 
     ![](ghostFleetWiki1.PNG)
-    This is what you get when you want to get informations about the ghost fleet - world event
+    This is what the user gets when they search for informations about the ghost fleet - world event
     ![](ghostFleetWiki2.PNG)
-    And for the relevant loot drop - information you have to scroll through half the article.
-    This is not very efficient.
+    And for the relevant loot drop - information the user would have to scroll through half the article.
+    which is not very efficient.
   
-* Others in the group can't see the information the user just researched unless the user sends a link via a discord channel or some other means of communication.
+* Others in the group can not see the information the user just researched unless the user sends a link via a discord channel or some other means of communication.
 
 ## Problem
-In Sea of Thieves you have to be the fastest and the smartest in the battle. But sometimes you lack one small piece of information, that would be battledeciding. Looking it up in the wiki is very time inefficient as we saw before.
+In Sea of Thieves the players objective is to be the fastest and the smartest in the battle. But sometimes the player lacks one small piece of information, that would be battledeciding. Looking it up in the wiki is very time inefficient as we saw before.
 
 ## By using a discord bot a lot of these flaws could be eliminated: 
-* Users mostly play in groups and commmunicate via Discord. If you could research in that app you dont have to open a browser.
-* A discord bot could handle quick researches very fast and eliminate all the time inefficiencies by giving you the first search result in the wiki and trimming all unnecessary information away. 
+* Users mostly play in groups and commmunicate via Discord. If users could research in that app they would not have to open a browser.
+* A discord bot could handle quick researches very fast and eliminate all the time inefficiencies by giving the user the first search result in the wiki and trimming all unnecessary information away. 
 
 * Because the bot outputs it's findings to a discord channel others in the group can easily view the information as well.
   
 
 ## General Conditions and Constraints
 
-Using the bot has to be simpler and faster than the established procedure. We weren't able to identify any constraints.
+Using the bot has to be simpler and faster than the established procedure.
+The ouptput has to be printed in a way in a way where the user can gather the information quicker than googling it.
+![](slouch_hat.png)
 
 
 ## Project Objectives and System Concepts
@@ -49,7 +51,7 @@ Using the bot has to be simpler and faster than the established procedure. We we
 ## Opportunities and Risks
 
 Opportunities:
-* Looking something up won't break the user's immersion.
+* Looking something up will not break the user's immersion.
 * Using the bot is much simpler and faster than the established procedure.
 * We make an established bot for the community that everyone uses
 * We take over the world
@@ -61,14 +63,20 @@ Risks:
 
 ## Planning
 
+
+
+
+
+
 ### Milestones:
-1. The project environment is set up and fully functional for all team members
-2. The bot is running
-3. The bot can process querys and output a basic description of the found article
-4. The bot also sends an image of the infotable
-5. The users can get further information by reacting to the bot's message
-6. The bot sends screenshots of tables when appropriate
-7. The bot can dynamically integrate images into it's answer
+| Milestone                                                                    	| Status      	| Finish Date 	|
+|------------------------------------------------------------------------------	|-------------	|-------------	|
+| the project environment is set up and fully functional for all team members  	| Not Started 	|6.1.2022      	|
+| the bot is running                                                           	| Not Started 	|10.2.2022     	|
+| the bot can process querys and output basic description for searched article 	| Not Started 	|             	|
+| the bot sends the image of an infotable                                      	| Not Started 	|             	|
+| the users get further information by reacting to the bots message            	| Not Started 	|             	|
+| the bot can dynamically integrate pictures into its messages                 	| Not Started 	|             	|
 
 ### Is there a Start Date?
 January 2022
