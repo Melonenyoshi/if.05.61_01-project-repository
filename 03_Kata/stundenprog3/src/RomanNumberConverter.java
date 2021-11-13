@@ -12,6 +12,14 @@ public class RomanNumberConverter {
         }
         return romanNumber;
     }
+
+    public static int toArabic(String romanNumber) {
+        if(romanNumber.equals("II"))
+            return 2;
+
+        return 1;
+    }
+
     enum Numeral{
         TEN(10, "X"),
         NINE(9, "IX"),
