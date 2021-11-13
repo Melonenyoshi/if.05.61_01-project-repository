@@ -14,18 +14,29 @@ public class RomanNumberConverter {
     }
 
     public static int toArabic(String romanNumber) {
-        if(romanNumber == "V")
-            return 5;
-
-        if(romanNumber == "IV")
-            return 4;
-
         int arabicNumber = 0;
-        for(int i = romanNumber.length(); i > 0; i--)
+        int lastDigit = 0;
+        for(int i = romanNumber.length()-1;i>=0;i--)
         {
-            arabicNumber++;
-        }
+            int thisdigit = 0;
+            for(var numeral: Numeral.values())
+            {
+                if(numeral.roman.equals(String.valueOf(romanNumber.charAt(i))))
+                {
+                    thisdigit = numeral.arabic;
+                }
+            }
 
+            if(thisdigit >= lastDigit)
+            {
+                arabicNumber += thisdigit;
+            }
+            else
+            {
+                arabicNumber -= thisdigit;
+            }
+            lastDigit = thisdigit;
+        }
         return arabicNumber;
     }
 
