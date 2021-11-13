@@ -27,4 +27,10 @@ public class ArabicNumberCalculatorTest {
     {
         Assert.assertEquals(5,RomanNumberConverter.toArabic("V"));
     }
+    @Test
+    public void itShouldReturn100GivenC()
+    {
+        Assert.assertEquals(100,RomanNumberConverter.toArabic("C"));
+    }
+
 }
