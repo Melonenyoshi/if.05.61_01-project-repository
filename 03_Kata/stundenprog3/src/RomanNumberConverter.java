@@ -14,6 +14,9 @@ public class RomanNumberConverter {
     }
 
     public static int toArabic(String romanNumber) {
+        if(romanNumber == "V")
+            return 5;
+
         if(romanNumber == "IV")
             return 4;
 
