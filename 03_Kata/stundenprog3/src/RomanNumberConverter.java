@@ -41,7 +41,8 @@ public class RomanNumberConverter {
     }
 
     enum Numeral{
-        FIVEHUNDRED(500,"M"),
+        THOUSAND(1000,"M"),
+        FIVEHUNDRED(500,"D"),
         HUNDRED(100,"C"),
         FIFTY(50, "L"),
         TEN(10, "X"),

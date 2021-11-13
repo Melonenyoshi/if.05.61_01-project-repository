@@ -32,5 +32,24 @@ public class ArabicNumberCalculatorTest {
     {
         Assert.assertEquals(100,RomanNumberConverter.toArabic("C"));
     }
-
+    @Test
+    public void itShouldReturn183GivenCLXXXIII()
+    {
+        Assert.assertEquals(183,RomanNumberConverter.toArabic("CLXXXIII"));
+    }
+    @Test
+    public void itShouldReturn99GivenXCIX()
+    {
+        Assert.assertEquals(99,RomanNumberConverter.toArabic("XCIX"));
+    }
+    @Test
+    public void itShouldReturn536GivenDXXXVI()
+    {
+        Assert.assertEquals(536,RomanNumberConverter.toArabic("DXXXVI"));
+    }
+    @Test
+    public void itShouldReturn387GivenCCCLXXXVII()
+    {
+        Assert.assertEquals(387,RomanNumberConverter.toArabic("CCCLXXXVII"));
+    }
 }
