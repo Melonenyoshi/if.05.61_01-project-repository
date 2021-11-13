@@ -5,9 +5,11 @@ public class ArabicNumberCalculatorTest {
     @Test
     public void itShouldReturn1GivenI()
     {
+        Assert.assertEquals(1,RomanNumberConverter.toArabic("I"));
+    }
+    @Test
+    public void itShouldReturn2GivenII()
+    {
         Assert.assertEquals(2,RomanNumberConverter.toArabic("II"));
-        //put in project on git
-        //after every ut -> commit
-        
     }
 }
