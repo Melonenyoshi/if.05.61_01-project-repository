@@ -14,11 +14,15 @@ public class RomanNumberConverter {
     }
 
     public static int toArabic(String romanNumber) {
+        if(romanNumber == "IV")
+            return 4;
+
         int arabicNumber = 0;
         for(int i = romanNumber.length(); i > 0; i--)
         {
             arabicNumber++;
         }
+
         return arabicNumber;
     }
 

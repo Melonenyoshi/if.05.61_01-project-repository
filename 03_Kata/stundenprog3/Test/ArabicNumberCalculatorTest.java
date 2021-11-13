@@ -17,4 +17,9 @@ public class ArabicNumberCalculatorTest {
     {
         Assert.assertEquals(3,RomanNumberConverter.toArabic("III"));
     }
+    @Test
+    public void itShouldReturn4GivenIV()
+    {
+        Assert.assertEquals(4,RomanNumberConverter.toArabic("IV"));
+    }
 }
