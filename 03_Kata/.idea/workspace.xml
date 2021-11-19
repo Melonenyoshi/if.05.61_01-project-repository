@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="89026aef-06cc-4ffa-9b77-6419e6a19b93" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/runConfigurations.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/Test/OrderedJobsTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/src/OrderedJobs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/03_Kata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/03_Kata.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/libraries/blazegraph_junit_ext.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/runConfigurations.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/Test/ArabicNumberCalculatorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/Test/RomanNumberCalculatorTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/RomanNumberConverter$Numeral.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/RomanNumberConverter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/out/test/stundenprog3/RomanNumberCalculatorTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/src/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/src/RomanNumberConverter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stundenprog3/stundenprog3.iml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="218IE9jGns15S3lqsa5pT1VqxsJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="89026aef-06cc-4ffa-9b77-6419e6a19b93" name="Changes" comment="" />
+      <created>1637316176050</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637316176050</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
