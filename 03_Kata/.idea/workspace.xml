@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="89026aef-06cc-4ffa-9b77-6419e6a19b93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/Test/OrderedJobsTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/src/OrderedJobs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/Test/JobsSchedulerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/roderedJobs.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/roderedJobs/src/Job.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/romannumb/03_Kata.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/romannumb/stundenprog3/stundenprog3.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/03_Kata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/03_Kata.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/libraries/blazegraph_junit_ext.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/Test/ArabicNumberCalculatorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/Test/RomanNumberCalculatorTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/RomanNumberConverter$Numeral.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/out/production/stundenprog3/RomanNumberConverter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/out/test/stundenprog3/RomanNumberCalculatorTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/src/RomanNumberConverter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stundenprog3/stundenprog3.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roderedJobs/Test/OrderedJobsTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/roderedJobs/src/OrderedJobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/roderedJobs/src/JobsScheduler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +37,60 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunManager" selected="JUnit.JobsSchedulerTest">
+    <configuration name="JobsSchedulerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="03_Kata" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="JobsSchedulerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobsSchedulerTest.itShouldReturnABC_GivenBDependingOnA_AndCDependsOnB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="03_Kata" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="JobsSchedulerTest" />
+      <option name="METHOD_NAME" value="itShouldReturnABC_GivenBDependingOnA_AndCDependsOnB" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobsSchedulerTest.itShouldReturnAB_GivenABB" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="03_Kata" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="JobsSchedulerTest" />
+      <option name="METHOD_NAME" value="itShouldReturnAB_GivenABB" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JobsSchedulerTest.itShouldReturnBA_GivenBA" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="03_Kata" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="JobsSchedulerTest" />
+      <option name="METHOD_NAME" value="itShouldReturnBA_GivenBA" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.JobsSchedulerTest" />
+        <item itemvalue="JUnit.JobsSchedulerTest.itShouldReturnAB_GivenABB" />
+        <item itemvalue="JUnit.JobsSchedulerTest.itShouldReturnBA_GivenBA" />
+        <item itemvalue="JUnit.JobsSchedulerTest.itShouldReturnABC_GivenBDependingOnA_AndCDependsOnB" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -70,5 +113,25 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/roderedJobs/src/Job.java</url>
+          <line>22</line>
+          <properties class="Job" method="compareTo">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="this.dependsOn" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>
