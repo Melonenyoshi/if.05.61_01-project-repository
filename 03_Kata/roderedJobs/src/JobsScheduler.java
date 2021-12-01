@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class JobsScheduler {
     private List<Job> jobs = new LinkedList<>();
-
+    private boolean isErrorLooped = false;
     public void registerJob(String jobName) {
         if(getIfExistsInList(jobName) == null) {
             Job job = new Job(jobName);
@@ -19,7 +19,7 @@ public class JobsScheduler {
         Job inListItemIndep = getIfExistsInList(independentJob);
         if(inListItemIndep != null && inListItemDep != null)
         {
-            //loop error
+            isErrorLooped = true;
             return;
         }
         if(inListItemIndep != null)
@@ -55,7 +55,10 @@ public class JobsScheduler {
 
     public String getList() {
         String result = "";
-
+        if(isErrorLooped)
+        {
+            return result;
+        }
         for (Job curr: jobs
              ) {
             result += curr.getJobName("");

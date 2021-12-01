@@ -107,4 +107,33 @@ public class JobsSchedulerTest {
         //assert
         Assert.assertEquals("BA",sut.getList());
     }
+    @Test
+    public void itShouldReturnNothing_GivenAdependsOnBAndBDependsOnA()
+    {
+        //arrange
+        var sut = new JobsScheduler();//systemundertest
+        sut.registerJob("A","B");
+        sut.registerJob("B","A");
+        //act
+        sut.sort();
+        //assert
+        Assert.assertEquals("",sut.getList());
+    }
+    @Test
+    public void complexTest1()
+    {
+        //arrange
+        var sut = new JobsScheduler();//systemundertest
+        sut.registerJob("A");
+        sut.registerJob("B","A");
+        sut.registerJob("C","A");
+        sut.registerJob("D","C");
+        sut.registerJob("Y","X");
+        sut.registerJob("Z");
+        //act
+        sut.sort();
+        //assert
+        Assert.assertEquals("ABCDXYZ",sut.getList());
+    }
+
 }
