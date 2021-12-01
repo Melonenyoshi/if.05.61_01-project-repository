@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="89026aef-06cc-4ffa-9b77-6419e6a19b93" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/Test/JobsSchedulerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/roderedJobs.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/roderedJobs/src/Job.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/romannumb/03_Kata.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/romannumb/stundenprog3/stundenprog3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="89026aef-06cc-4ffa-9b77-6419e6a19b93" name="Changes" comment="starting more or less fresh. but we keep the class job">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/03_Kata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/03_Kata.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/roderedJobs/Test/OrderedJobsTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/roderedJobs/src/OrderedJobs.java" beforeDir="false" afterPath="$PROJECT_DIR$/roderedJobs/src/JobsScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roderedJobs/Test/JobsSchedulerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/roderedJobs/Test/JobsSchedulerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roderedJobs/src/Job.java" beforeDir="false" afterPath="$PROJECT_DIR$/roderedJobs/src/Job.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/roderedJobs/src/JobsScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/roderedJobs/src/JobsScheduler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +93,14 @@
       <option name="presentableId" value="Default" />
       <updated>1637316176050</updated>
     </task>
+    <task id="LOCAL-00001" summary="starting more or less fresh. but we keep the class job">
+      <created>1638383886642</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1638383886642</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -115,23 +115,27 @@
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="starting more or less fresh. but we keep the class job" />
+    <option name="LAST_COMMIT_MESSAGE" value="starting more or less fresh. but we keep the class job" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/roderedJobs/Test/JobsSchedulerTest.java</url>
+          <line>49</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/roderedJobs/src/Job.java</url>
-          <line>22</line>
-          <properties class="Job" method="compareTo">
+          <line>17</line>
+          <properties class="Job" method="getJobName">
             <option name="EMULATED" value="true" />
           </properties>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="JUnit">
-        <watch expression="this.dependsOn" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

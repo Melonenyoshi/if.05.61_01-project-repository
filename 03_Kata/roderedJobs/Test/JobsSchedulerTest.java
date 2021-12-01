@@ -13,7 +13,7 @@ public class JobsSchedulerTest {
         //assert
         Assert.assertEquals("A",sut.getList());
     }
-    /*
+
     @Test
     public void itShouldReturnAB_GivenAB()
     {
@@ -106,5 +106,5 @@ public class JobsSchedulerTest {
         sut.sort();
         //assert
         Assert.assertEquals("BA",sut.getList());
-    }*/
+    }
 }

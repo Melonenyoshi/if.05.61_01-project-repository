@@ -1,10 +1,10 @@
 public class Job{
     private String name;
-    private Job dependsOn;
+    private Job jobThatDependOnThisJob;
 
-    public Job(String name, Job dependsOn) {
+    public Job(String name, Job jobThatDependOnThisJob) {
         this.name = name;
-        this.dependsOn = dependsOn;
+        this.jobThatDependOnThisJob = jobThatDependOnThisJob;
     }
 
     public Job(String name) {
@@ -12,10 +12,16 @@ public class Job{
     }
 
     public Job getDependency() {
-        return dependsOn;
+        return jobThatDependOnThisJob;
     }
 
-    public String getName() {
-        return name;
+    public String getJobName(String s) {
+        s += name;
+        if(jobThatDependOnThisJob != null)
+        {
+            return jobThatDependOnThisJob.getJobName(s);
+        }
+        return s;
     }
+
 }
