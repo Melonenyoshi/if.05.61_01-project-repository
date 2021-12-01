@@ -124,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1638386124307</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="funktioniert wieder mehr. added jetzt einen abhängigen job wenn namen gleich sind vom independant">
+      <created>1638388512895</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1638388512895</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -143,6 +150,7 @@
     <MESSAGE value="starting more or less fresh. but we keep the class job" />
     <MESSAGE value="some progress" />
     <MESSAGE value="job abb = ab" />
-    <option name="LAST_COMMIT_MESSAGE" value="job abb = ab" />
+    <MESSAGE value="funktioniert wieder mehr. added jetzt einen abhängigen job wenn namen gleich sind vom independant" />
+    <option name="LAST_COMMIT_MESSAGE" value="funktioniert wieder mehr. added jetzt einen abhängigen job wenn namen gleich sind vom independant" />
   </component>
 </project>

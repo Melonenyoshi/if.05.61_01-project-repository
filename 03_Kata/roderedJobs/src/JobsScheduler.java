@@ -15,15 +15,29 @@ public class JobsScheduler {
     }
     public void registerJob(String dependentJob,String independentJob) {
         Job jobDep = new Job(dependentJob);
-
-        Job inListItem = getIfExistsInList(independentJob);
-        if(inListItem != null)
+        Job inListItemDep = getIfExistsInList(dependentJob);
+        Job inListItemIndep = getIfExistsInList(independentJob);
+        if(inListItemIndep != null && inListItemDep != null)
         {
-            inListItem.addJobThatDependsOnThisJob(jobDep);
+            //loop error
+            return;
+        }
+        if(inListItemIndep != null)
+        {
+            inListItemIndep.addJobThatDependsOnThisJob(jobDep);
         }
         else {
-            Job jobInd = new Job(independentJob, jobDep);
-            jobs.add(jobInd);
+            Job jobInd = new Job(independentJob);
+            if(inListItemDep != null)
+            {
+                jobs.add(jobInd);
+                jobs.remove(inListItemDep);
+                jobInd.addJobThatDependsOnThisJob(inListItemDep);
+            }
+            else{
+                jobInd.addJobThatDependsOnThisJob(jobDep);
+                jobs.add(jobInd);
+            }
         }
     }
     private Job getIfExistsInList(String s)

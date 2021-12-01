@@ -5,16 +5,8 @@ public class Job{
     private String name;
     private List<Job> jobsThatDependOnThisJob = new LinkedList<>();
 
-    public Job(String name, Job givenJobDependingOnThisJob) {
-        this.name = name;
-        if(givenJobDependingOnThisJob != null)
-        {
-            this.jobsThatDependOnThisJob.add(givenJobDependingOnThisJob);
-        }
-    }
-
     public Job(String name) {
-        this(name,null);
+        this.name = name;
     }
 
     public Job getJobInChain(String s)
