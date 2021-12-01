@@ -8,11 +8,24 @@ public class Job{
     }
 
     public Job(String name) {
-        this.name = name;
+        this(name,null);
     }
 
-    public Job getDependency() {
-        return jobThatDependOnThisJob;
+    public Job getJobInChain(String s)
+    {
+        if(s == name)
+        {
+            return this;
+        }
+        else{
+            if(jobThatDependOnThisJob != null)
+            {
+                return this.jobThatDependOnThisJob.getJobInChain(s);
+            }
+            else{
+                return  null;
+            }
+        }
     }
 
     public String getJobName(String s) {
