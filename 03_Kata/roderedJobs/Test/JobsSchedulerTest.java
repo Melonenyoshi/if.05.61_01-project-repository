@@ -8,8 +8,7 @@ public class JobsSchedulerTest {
         //arrange
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("A");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("A",sut.getList());
     }
@@ -21,8 +20,7 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("A");
         sut.registerJob("B");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("AB",sut.getList());
     }
@@ -36,8 +34,6 @@ public class JobsSchedulerTest {
         sut.registerJob("B");
         sut.registerJob("C");
 
-        //act
-        sut.sort();
         //assert
         Assert.assertEquals("ABC",sut.getList());
     }
@@ -49,8 +45,6 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("B","A");
 
-        //act
-        sut.sort();
         //assert
         Assert.assertEquals("AB",sut.getList());
     }
@@ -62,8 +56,7 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("B","A");
         sut.registerJob("C","B");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("ABC",sut.getList());
     }
@@ -76,7 +69,6 @@ public class JobsSchedulerTest {
         sut.registerJob("B");
         sut.registerJob("B");
 
-        //act
         sut.sort();
         //assert
         Assert.assertEquals("AB",sut.getList());
@@ -89,8 +81,7 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("C","B");
         sut.registerJob("B","A");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("ABC",sut.getList());
     }
@@ -102,8 +93,7 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("B");
         sut.registerJob("A");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("BA",sut.getList());
     }
@@ -114,8 +104,7 @@ public class JobsSchedulerTest {
         var sut = new JobsScheduler();//systemundertest
         sut.registerJob("A","B");
         sut.registerJob("B","A");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("",sut.getList());
     }
@@ -130,10 +119,8 @@ public class JobsSchedulerTest {
         sut.registerJob("D","C");
         sut.registerJob("Y","X");
         sut.registerJob("Z");
-        //act
-        sut.sort();
+
         //assert
         Assert.assertEquals("ABCDXYZ",sut.getList());
     }
-
 }
