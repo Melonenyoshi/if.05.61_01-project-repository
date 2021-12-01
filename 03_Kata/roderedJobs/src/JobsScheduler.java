@@ -8,27 +8,33 @@ public class JobsScheduler {
     private List<Job> jobs = new LinkedList<>();
 
     public void registerJob(String jobName) {
-        if(!existsInList(jobName)) {
+        if(getIfExistsInList(jobName) == null) {
             Job job = new Job(jobName);
             jobs.add(job);
         }
     }
     public void registerJob(String dependentJob,String independentJob) {
-        if(!existsInList(independentJob)) {
-            Job jobDep = new Job(dependentJob);
+        Job jobDep = new Job(dependentJob);
+
+        Job inListItem = getIfExistsInList(independentJob);
+        if(inListItem != null)
+        {
+            inListItem.addJobThatDependsOnThisJob(jobDep);
+        }
+        else {
             Job jobInd = new Job(independentJob, jobDep);
             jobs.add(jobInd);
         }
     }
-    private boolean existsInList(String s)
+    private Job getIfExistsInList(String s)
     {
         for (Job curr: jobs) {
             if(curr.getJobInChain(s) != null)
             {
-                return true;
+                return curr;
             }
         }
-        return false;
+        return null;
     }
     public void sort() {
     }

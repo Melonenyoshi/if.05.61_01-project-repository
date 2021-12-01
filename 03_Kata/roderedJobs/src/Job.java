@@ -1,10 +1,16 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Job{
     private String name;
-    private Job jobThatDependOnThisJob;
+    private List<Job> jobsThatDependOnThisJob = new LinkedList<>();
 
-    public Job(String name, Job jobThatDependOnThisJob) {
+    public Job(String name, Job givenJobDependingOnThisJob) {
         this.name = name;
-        this.jobThatDependOnThisJob = jobThatDependOnThisJob;
+        if(givenJobDependingOnThisJob != null)
+        {
+            this.jobsThatDependOnThisJob.add(givenJobDependingOnThisJob);
+        }
     }
 
     public Job(String name) {
@@ -18,23 +24,41 @@ public class Job{
             return this;
         }
         else{
-            if(jobThatDependOnThisJob != null)
+            if(!jobsThatDependOnThisJob.isEmpty())
             {
-                return this.jobThatDependOnThisJob.getJobInChain(s);
+                for (Job curr: jobsThatDependOnThisJob
+                     ) {
+                    Job gottenJob = curr.getJobInChain(s);
+                    if(gottenJob != null)
+                    {
+                        return gottenJob;
+                    }
+                }
+                return null;
             }
             else{
                 return  null;
             }
         }
     }
+    public void addJobThatDependsOnThisJob(Job job)
+    {
+        if(job != null)
+        {
+            this.jobsThatDependOnThisJob.add(job);
+        }
+    }
 
     public String getJobName(String s) {
-        s += name;
-        if(jobThatDependOnThisJob != null)
+        s = name;
+
+        if(!jobsThatDependOnThisJob.isEmpty())
         {
-            return jobThatDependOnThisJob.getJobName(s);
+            for (Job curr: jobsThatDependOnThisJob
+                 ) {
+                s+= curr.getJobName(s);
+            }
         }
         return s;
     }
-
 }
