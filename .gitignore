@@ -499,4 +499,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Discord Files
+*.env
+
 # End of https://www.toptal.com/developers/gitignore/api/latex,linux,macos,windows,intellij,java
