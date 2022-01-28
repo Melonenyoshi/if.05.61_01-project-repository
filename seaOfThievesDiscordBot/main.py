@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix=".")
 @client.event
 async def on_ready():
     activity = discord.Game(name="Sea of Thieves", type=1)
-    await client.change_presence(status=discord.Status.idle, activity=activity)
+    await client.change_presence(status=discord.Status.online, activity=activity)
     print(f'{client.user} has connected to Discord!')
 
 
