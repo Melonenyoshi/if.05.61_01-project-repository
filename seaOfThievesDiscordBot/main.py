@@ -25,8 +25,8 @@ async def ping(ctx):
 
 
 @client.command()
-async def query(ctx, search_term):
-    await ctx.send(get_description(get_soup_object(search_term)))
+async def query(ctx, *search_term):
+    await ctx.send(get_description(get_soup_object("+".join(search_term))))
 
 
 def get_soup_object(search_term):
