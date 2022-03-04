@@ -38,6 +38,8 @@ async def add(ctx, first_numb, second_numb):
 async def web(ctx,given_search_string):
     output = ""
 
+    #given_search_string.replace(" ", "+")
+
     path = "https://seaofthieves.fandom.com/wiki/Special:Search?query="+given_search_string
 
     request = requests.get(path)
@@ -50,10 +52,10 @@ async def web(ctx,given_search_string):
     children_of_image_div = image_div.findChildren("a", {"class": "image"}, recursive=True)
     output += "\n" + children_of_image_div[0]["href"]
 
-    first_line_div = image_div;
+    first_line_div = image_div
     children_of_line_div = first_line_div.findChildren("p")
 
-    output += "\n" + children_of_line_div[0].text;
+    output += "\n" + children_of_line_div[0].text
 
     print("output: \n"+output)
 
