@@ -23,42 +23,19 @@ async def on_ready():
 async def ping(ctx):
     await ctx.send(f"Pong! {round(client.latency * 1000)}ms")
 
+
 @client.command()
-async def add(ctx, first_numb, second_numb):
-    first = 0
-    second = 0
-    try:
-        first = int(first_numb)
-        second = int(second_numb)
-    except:
-        await ctx.send("That aint even numbers")
-    else:
-        await ctx.send(f"the result is {first + second}")
-@client.command()
-async def web(ctx,given_search_string):
-    output = ""
+async def query(ctx, search_term):
+    await ctx.send(get_description(get_soup_object(search_term)))
 
-    #given_search_string.replace(" ", "+")
 
-    path = "https://seaofthieves.fandom.com/wiki/Special:Search?query="+given_search_string
+def get_soup_object(search_term):
+    return BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term).text,
+                         'html.parser')
 
-    request = requests.get(path)
 
-    soup = BeautifulSoup(request.text, 'html.parser')
+def get_description(soup):
+    return soup.find("div", {"class": "mw-parser-output"}).findChildren("p")[0].text
 
-    output += soup.title.string
-
-    image_div = soup.find("div", {"class": "mw-parser-output"})
-    children_of_image_div = image_div.findChildren("a", {"class": "image"}, recursive=True)
-    output += "\n" + children_of_image_div[0]["href"]
-
-    first_line_div = image_div
-    children_of_line_div = first_line_div.findChildren("p")
-
-    output += "\n" + children_of_line_div[0].text
-
-    print("output: \n"+output)
-
-    await ctx.send(output)
 
 client.run(TOKEN)
