@@ -3,13 +3,15 @@ import os
 from bs4 import BeautifulSoup
 import requests
 import discord
-from discord.ext import commands
+from discord import Intents, Client
+from discord_slash import SlashCommand
 from dotenv import load_dotenv
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = commands.Bot(command_prefix=".")
+client = Client(intents=Intents.default())
+slash = SlashCommand(client)
 
 
 @client.event
@@ -19,19 +21,19 @@ async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
 
-@client.command()
+@slash.slash(name="Ping", description="Returns the delay of the bot")
 async def ping(ctx):
     await ctx.send(f"Pong! {round(client.latency * 1000)}ms")
 
 
-@client.command()
-async def query(ctx, *search_term):
-    await ctx.send(get_description(get_soup_object("+".join(search_term))))
+@slash.slash(name="Query", description="Queries the wiki for the given search term")
+async def query(ctx, search_term):
+    await ctx.send(get_description(get_soup_object("https://seaofthieves.fandom.com/wiki/Special:Search?query=" +
+                                                   search_term)))
 
 
-def get_soup_object(search_term):
-    return BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term).text,
-                         'html.parser')
+def get_soup_object(url):
+    return BeautifulSoup(requests.get(url).text, 'html.parser')
 
 
 def get_description(soup):
