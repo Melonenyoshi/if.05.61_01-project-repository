@@ -55,7 +55,9 @@ class Article:
 
     def get_embed(self):
         if self.soup is not None:
-            embed = discord.Embed(title=self.get_title(), description=self.get_description(), url=self.get_url(),
+            embed = discord.Embed(title=self.get_title(),
+                                  description=self.get_description(),
+                                  url=self.get_url(),
                                   color=0x10938a)
             if self.get_thumbnail() is not False:
                 embed.set_thumbnail(url=self.get_thumbnail())
@@ -71,7 +73,10 @@ class Article:
                         embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
                     else:
                         if "Cost" in tr.findNext().text:
-                            embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text.strip() + " " + tr.findChildren('a')[0]['title'], inline=True)
+                            embed.add_field(name=tr.findNext().text,
+                                            value=tr.findNext().findNext().text.strip() + " " +
+                                            tr.findChildren('a')[0]['title'],
+                                            inline=True)
                         else:
                             embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text, inline=True)
             embed.set_footer(text="This instance is hosted by " + HOST)
