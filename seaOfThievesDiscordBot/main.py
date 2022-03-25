@@ -1,18 +1,18 @@
 # bot.py
 import os
-from bs4 import BeautifulSoup
-import requests
 import discord
-from discord import Intents, Client
+import requests
+from bs4 import BeautifulSoup
 from discord.ext import commands
 from discord_slash import SlashCommand
 from dotenv import load_dotenv
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('TOKEN')
+HOST = os.getenv('HOST')
 
-client = commands.Bot(command_prefix=".")  # Client(intents=Intents.default())
-slash = SlashCommand(client)
+client = commands.Bot(command_prefix="We only use slash commands")
+slash = SlashCommand(client, sync_commands=True)
 
 
 @client.event
@@ -27,58 +27,73 @@ async def ping(ctx):
     await ctx.send(f"Pong! {round(client.latency * 1000)}ms")
 
 
-@client.command()
-async def random(ctx):
-    await ctx.send(embed=get_embed(get_soup_object("https://seaofthieves.fandom.com/wiki/Special:Random")))
-
-
 @slash.slash(name="Random", description="Gets a random wiki article")
 async def random(ctx):
-    await ctx.send(embed=get_embed(get_soup_object("https://seaofthieves.fandom.com/wiki/Special:Random")))
+    await ctx.send(embed=Article().get_embed())
 
 
 @slash.slash(name="Query", description="Queries the wiki for the given search term")
 async def query(ctx, search_term):
-    await ctx.send(embed=get_embed(get_soup_object("https://seaofthieves.fandom.com/wiki/Special:Search?query=" +
-                                                   search_term)))
+    await ctx.send(
+        embed=Article("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term).get_embed())
 
 
-def get_embed(soup):
-    if soup is not None:
-        embed = discord.Embed(title=get_title(soup), description=get_description(soup), url=get_url(soup))
-        embed.set_thumbnail(url=get_thumbnail(soup))
-        embed.set_footer(text="This instance is run by " + os.getenv('AUTHOR'))
-    else:
-        embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
-        embed.set_footer(text="This instance is run by " + os.getenv('AUTHOR'))
-    return embed
-
-
-def get_soup_object(url):
-    soup = BeautifulSoup(requests.get(url).text, 'html.parser')
-    if "Search Results" in soup.find("h1", {"id": "firstHeading"}).text:
-        if soup.find("h1", {"class": "unified-search__result__header"}) is not None:
-            soup = BeautifulSoup(requests.get(soup.find_all("h1", {"class": "unified-search__result__header"})[0].
-                                              findChildren("a")[0]["href"]).text, 'html.parser')
+class Article:
+    def __init__(self, *args):
+        if args:
+            self.soup = BeautifulSoup(requests.get(args[0]).text, 'html.parser')
+            if "Search Results" in self.soup.find("h1", {"id": "firstHeading"}).text:
+                if self.soup.find("h1", {"class": "unified-search__result__header"}) is not None:
+                    self.soup = BeautifulSoup(
+                        requests.get(self.soup.find_all("h1", {"class": "unified-search__result__header"})[0].
+                                     findChildren("a")[0]["href"]).text, 'html.parser')
+                else:
+                    self.soup = None
         else:
-            soup = None
-    return soup
+            self.soup = BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Random").text,
+                                      'html.parser')
 
+    def get_embed(self):
+        if self.soup is not None:
+            embed = discord.Embed(title=self.get_title(), description=self.get_description(), url=self.get_url(),
+                                  color=0x10938a)
+            if self.get_thumbnail() is not False:
+                embed.set_thumbnail(url=self.get_thumbnail())
+            has_found_beginning = False
+            for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
+                if not has_found_beginning:
+                    try:
+                        has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
+                    except KeyError:
+                        pass
+                if has_found_beginning:
+                    if tr.findNext().has_attr('colspan'):
+                        embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
+                    else:
+                        if "Cost" in tr.findNext().text:
+                            embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text.strip() + " " + tr.findChildren('a')[0]['title'], inline=True)
+                        else:
+                            embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text, inline=True)
+            embed.set_footer(text="This instance is hosted by " + HOST)
+        else:
+            embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
+            embed.set_footer(text="This instance is hosted by " + HOST)
+        return embed
 
-def get_description(soup):
-    return soup.find("div", {"class": "mw-parser-output"}).findChildren("p")[0].text
+    def get_title(self):
+        return self.soup.head.title.text[:-26]
 
+    def get_description(self):
+        return self.soup.find("div", {"class": "mw-parser-output"}).findChildren("p", recursive=False)[0].text
 
-def get_title(soup):
-    return soup.head.title.text[:-26]
+    def get_url(self):
+        return self.soup.find('meta', attrs={"name": "twitter:url"})['content']
 
-
-def get_url(soup):
-    return soup.find('meta', attrs={"name": "twitter:url"})['content']
-
-
-def get_thumbnail(soup):
-    return soup.find("div", {"class": "mw-parser-output"}).findChildren("img")[0]['src']
+    def get_thumbnail(self):
+        try:
+            return self.soup.find("table", {"class": "infoboxtable"}).findChildren("img")[0]['src']
+        except IndexError:
+            return False
 
 
 client.run(TOKEN)
