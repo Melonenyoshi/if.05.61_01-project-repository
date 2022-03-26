@@ -1,10 +1,12 @@
 # bot.py
 import os
+
 import discord
 import requests
 from bs4 import BeautifulSoup
 from discord.ext import commands
-from discord_slash import SlashCommand
+from discord_slash import SlashCommand, ComponentContext
+from discord_slash.utils.manage_components import create_select, create_select_option, create_actionrow
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,11 +17,18 @@ client = commands.Bot(command_prefix="We only use slash commands")
 slash = SlashCommand(client, sync_commands=True)
 
 
+
 @client.event
 async def on_ready():
     activity = discord.Game(name="Sea of Thieves", type=1)
     await client.change_presence(status=discord.Status.online, activity=activity)
     print(f'{client.user} has connected to Discord!')
+
+
+@client.event
+async def on_component(ctx: ComponentContext):
+    for value in ctx.values:
+        await ctx.send(embed=Article(value.split(';')[0]).get_section_embed(value.split(';')[1]))
 
 
 @slash.slash(name="Ping", description="Returns the delay of the bot")
@@ -29,13 +38,15 @@ async def ping(ctx):
 
 @slash.slash(name="Random", description="Gets a random wiki article")
 async def random(ctx):
-    await ctx.send(embed=Article().get_embed())
+    article = Article()
+    select = article.get_select()
+    await ctx.send(embed=article.get_embed(), components=[select])
 
 
 @slash.slash(name="Query", description="Queries the wiki for the given search term")
 async def query(ctx, search_term):
-    await ctx.send(
-        embed=Article("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term).get_embed())
+    article = Article("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term)
+    await ctx.send(embed=article.get_embed(), components=[article.get_select()])
 
 
 class Article:
@@ -75,7 +86,7 @@ class Article:
                         if "Cost" in tr.findNext().text:
                             embed.add_field(name=tr.findNext().text,
                                             value=tr.findNext().findNext().text.strip() + " " +
-                                            tr.findChildren('a')[0]['title'],
+                                                  tr.findChildren('a')[0]['title'],
                                             inline=True)
                         else:
                             embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text, inline=True)
@@ -83,6 +94,27 @@ class Article:
         else:
             embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
             embed.set_footer(text="This instance is hosted by " + HOST)
+        return embed
+
+    def get_select(self):
+        options = []
+        for span in self.soup.find("div", {"class": "mw-parser-output"}).findChildren("span", {"class": "mw-headline"}):
+            options.append(create_select_option(span.text, value=self.get_url() + ";" + span['id']))
+        select = create_select(
+            options=options,
+            placeholder="Further information",
+            max_values=len(options)
+        )
+        return create_actionrow(select)
+
+    def get_section_embed(self, section):
+        text = ""
+        for element in self.soup.find("span", {"id": section}).parent.findNextSiblings():
+            if element.findChildren("span", {"class": "mw-headline"}) or (element.has_attr('style') and "clear:both" in element['style']):
+                break
+            text += element.text
+        embed = discord.Embed(title=self.soup.find("span", {"id": section}).text, description=text, color=0x10938a)
+        embed.set_footer(text="This instance is hosted by " + HOST)
         return embed
 
     def get_title(self):
