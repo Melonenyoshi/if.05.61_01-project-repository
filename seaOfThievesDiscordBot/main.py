@@ -17,7 +17,6 @@ client = commands.Bot(command_prefix="We only use slash commands")
 slash = SlashCommand(client, sync_commands=True)
 
 
-
 @client.event
 async def on_ready():
     activity = discord.Game(name="Sea of Thieves", type=1)
@@ -110,7 +109,8 @@ class Article:
     def get_section_embed(self, section):
         text = ""
         for element in self.soup.find("span", {"id": section}).parent.findNextSiblings():
-            if element.findChildren("span", {"class": "mw-headline"}) or (element.has_attr('style') and "clear:both" in element['style']):
+            if element.findChildren("span", {"class": "mw-headline"}) or (
+                    element.has_attr('style') and "clear:both" in element['style']):
                 break
             text += element.text
         embed = discord.Embed(title=self.soup.find("span", {"id": section}).text, description=text, color=0x10938a)
