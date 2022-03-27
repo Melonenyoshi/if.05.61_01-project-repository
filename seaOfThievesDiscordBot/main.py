@@ -1,5 +1,6 @@
 # bot.py
 import os
+import traceback
 
 import discord
 import requests
@@ -16,6 +17,8 @@ HOST = os.getenv('HOST')
 client = commands.Bot(command_prefix="We only use slash commands")
 slash = SlashCommand(client, sync_commands=True)
 
+last_url = ""
+
 
 @client.event
 async def on_ready():
@@ -25,9 +28,23 @@ async def on_ready():
 
 
 @client.event
+async def on_slash_command_error(ctx, ex):
+    extext = str(ex)
+    embed = discord.Embed(title=extext.splitlines()[0],
+                          description=extext[len(extext.splitlines()[0]) + 1:],
+                          color=0xff0000,
+                          url=last_url)
+    embed.set_footer(text="This instance is hosted by " + HOST)
+    await client.get_channel(956879440418308096).send(embed=embed)
+    await client.get_channel(956879440418308096).send("```py\n" +
+                                                      ''.join(traceback.format_tb(tb=ex.__traceback__)) +
+                                                      "```")
+
+
+@client.event
 async def on_component(ctx: ComponentContext):
     for value in ctx.values:
-        await ctx.send(embed=Article(value.split(';')[0]).get_section_embed(value.split(';')[1]))
+        await ctx.send(embed=Article(value.split(';')[0]).get_embed(value.split(';')[1]))
 
 
 @slash.slash(name="Ping", description="Returns the delay of the bot")
@@ -35,11 +52,19 @@ async def ping(ctx):
     await ctx.send(f"Pong! {round(client.latency * 1000)}ms")
 
 
+@slash.slash(name="Test", description="Queries a random article the given amount of times")
+async def test(ctx, times):
+    times = int(times)
+    while times > 0:
+        article = Article()
+        await ctx.send(embed=article.get_embed(), components=[article.get_select()])
+        times -= 1
+
+
 @slash.slash(name="Random", description="Gets a random wiki article")
 async def random(ctx):
     article = Article()
-    select = article.get_select()
-    await ctx.send(embed=article.get_embed(), components=[select])
+    await ctx.send(embed=article.get_embed(), components=[article.get_select()])
 
 
 @slash.slash(name="Query", description="Queries the wiki for the given search term")
@@ -63,8 +88,18 @@ class Article:
             self.soup = BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Random").text,
                                       'html.parser')
 
-    def get_embed(self):
-        if self.soup is not None:
+    def get_embed(self, *args):
+        global last_url
+        last_url = self.get_url()
+        if args:
+            text = ""
+            for element in self.soup.find("span", {"id": args[0]}).parent.findNextSiblings():
+                if element.findChildren("span", {"class": "mw-headline"}) or (
+                        element.has_attr('style') and "clear:both" in element['style']):
+                    break
+                text += element.text
+            embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text, description=text, color=0x10938a)
+        elif self.soup is not None:
             embed = discord.Embed(title=self.get_title(),
                                   description=self.get_description(),
                                   url=self.get_url(),
@@ -72,27 +107,30 @@ class Article:
             if self.get_thumbnail() is not False:
                 embed.set_thumbnail(url=self.get_thumbnail())
             has_found_beginning = False
-            for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
-                if not has_found_beginning:
-                    try:
-                        has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
-                    except KeyError:
-                        pass
-                if has_found_beginning:
-                    if tr.findNext().has_attr('colspan'):
-                        embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
-                    else:
-                        if "Cost" in tr.findNext().text:
-                            embed.add_field(name=tr.findNext().text,
-                                            value=tr.findNext().findNext().text.strip() + " " +
-                                                  tr.findChildren('a')[0]['title'],
-                                            inline=True)
+            if self.soup.find("table", {"class": "infoboxtable"}):
+                for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
+                    if not has_found_beginning:
+                        try:
+                            has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
+                        except KeyError:
+                            pass
+                    if has_found_beginning:
+                        if tr.findNext().has_attr('colspan'):
+                            embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
                         else:
-                            embed.add_field(name=tr.findNext().text, value=tr.findNext().findNext().text, inline=True)
-            embed.set_footer(text="This instance is hosted by " + HOST)
+                            if "Cost" in tr.findNext().text and tr.findChildren('img'):
+                                embed.add_field(name=tr.findNext().text,
+                                                value=tr.findNext().findNext().text.strip() +
+                                                      " " +
+                                                      tr.findChildren('a')[0]['title'],
+                                                inline=True)
+                            else:
+                                embed.add_field(name=tr.findNext().text,
+                                                value=tr.findNext().findNext().text,
+                                                inline=True)
         else:
             embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
-            embed.set_footer(text="This instance is hosted by " + HOST)
+        embed.set_footer(text="This instance is hosted by " + HOST)
         return embed
 
     def get_select(self):
@@ -106,17 +144,6 @@ class Article:
         )
         return create_actionrow(select)
 
-    def get_section_embed(self, section):
-        text = ""
-        for element in self.soup.find("span", {"id": section}).parent.findNextSiblings():
-            if element.findChildren("span", {"class": "mw-headline"}) or (
-                    element.has_attr('style') and "clear:both" in element['style']):
-                break
-            text += element.text
-        embed = discord.Embed(title=self.soup.find("span", {"id": section}).text, description=text, color=0x10938a)
-        embed.set_footer(text="This instance is hosted by " + HOST)
-        return embed
-
     def get_title(self):
         return self.soup.head.title.text[:-26]
 
@@ -128,7 +155,7 @@ class Article:
 
     def get_thumbnail(self):
         try:
-            return self.soup.find("table", {"class": "infoboxtable"}).findChildren("img")[0]['src']
+            return self.soup.find("table", {"class": "infoboxtable"}).findChildren("a")[0]['href']
         except IndexError:
             return False
 
