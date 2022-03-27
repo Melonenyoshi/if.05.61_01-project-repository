@@ -2,7 +2,6 @@
 import os
 import traceback
 import time
-
 import discord
 import requests
 from bs4 import BeautifulSoup
@@ -36,8 +35,12 @@ async def on_slash_command_error(ctx, ex):
                               description="\u200b",
                               color=0xffa500)
         embed.set_footer(text="This instance is hosted by " + HOST)
-        time.sleep(10)
-        await ctx.send(embed=embed)
+        while True:
+            try:
+                await ctx.send(embed=embed)
+                return
+            except discord.errors.HTTPException:
+                time.sleep(1)
     else:
         embed = discord.Embed(title=extext.splitlines()[0],
                               description=extext[len(extext.splitlines()[0]) + 1:],
@@ -101,55 +104,58 @@ class Article:
             await ctx.send(embed=self.get_embed())
 
     def get_embed(self, *args):
-        global last_url
-        last_url = self.get_url()
-        if args:
-            text = ""
-            for element in self.soup.find("span", {"id": args[0]}).parent.findNextSiblings():
-                if element.findChildren("span", {"class": "mw-headline"}) or (
-                        element.has_attr('style') and "clear:both" in element['style']):
-                    break
-                text += element.text
-            embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text, description=text, color=0x10938a)
-        elif self.soup is not None:
-            embed = discord.Embed(title=self.get_title(),
-                                  description=self.get_description(),
-                                  url=self.get_url(),
-                                  color=0x10938a)
-            if self.get_thumbnail() is not False:
-                embed.set_thumbnail(url=self.get_thumbnail())
-            has_found_beginning = False
-            if self.soup.find("table", {"class": "infoboxtable"}):
-                for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
-                    if not has_found_beginning:
-                        try:
-                            has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
-                        except KeyError:
-                            pass
-                    if has_found_beginning:
-                        if tr.findNext().has_attr('colspan'):
-                            embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
-                        else:
-                            if "Cost" in tr.findNext().text and tr.findChildren('img'):
-                                embed.add_field(name=tr.findNext().text,
-                                                value=tr.findNext().findNext().text.strip() +
-                                                      " " +
-                                                      tr.findChildren('a')[0]['title'],
-                                                inline=True)
+        if self.soup is not None:
+            global last_url
+            last_url = self.get_url()
+            if args:
+                text = ""
+                for element in self.soup.find("span", {"id": args[0]}).parent.findNextSiblings():
+                    if element.findChildren("span", {"class": "mw-headline"}) or (
+                            element.has_attr('style') and "clear:both" in element['style']):
+                        break
+                    text += element.text
+                embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text, description=text, color=0x10938a)
+            else:
+                embed = discord.Embed(title=self.get_title(),
+                                      description=self.get_description(),
+                                      url=self.get_url(),
+                                      color=0x10938a)
+                if self.get_thumbnail() is not False:
+                    embed.set_thumbnail(url=self.get_thumbnail())
+                has_found_beginning = False
+                if self.soup.find("table", {"class": "infoboxtable"}):
+                    for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
+                        if not has_found_beginning:
+                            try:
+                                has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
+                            except KeyError:
+                                pass
+                        if has_found_beginning:
+                            if tr.findNext().has_attr('colspan'):
+                                embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
                             else:
-                                embed.add_field(name=tr.findNext().text,
-                                                value=tr.findNext().findNext().text,
-                                                inline=True)
+                                if "Cost" in tr.findNext().text and tr.findChildren('img'):
+                                    embed.add_field(name=tr.findNext().text,
+                                                    value=tr.findNext().findNext().text.strip() +
+                                                          " " +
+                                                          tr.findChildren('a')[0]['title'],
+                                                    inline=True)
+                                else:
+                                    embed.add_field(name=tr.findNext().text,
+                                                    value=tr.findChildren(recursive=False)[1].text,
+                                                    inline=True)
         else:
             embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
         embed.set_footer(text="This instance is hosted by " + HOST)
         return embed
 
     def get_select(self):
+        if self.soup is None:
+            return
         options = []
         for span in self.soup.find("div", {"class": "mw-parser-output"}).findChildren("span", {"class": "mw-headline"}):
             if "h2" in str(span.parent):
-                options.append(create_select_option(span.text, value=self.get_url() + ";" + span['id']))
+                options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[-37:]))
         if len(options) < 1:
             return
         select = create_select(
@@ -163,7 +169,9 @@ class Article:
         return self.soup.head.title.text[:-26]
 
     def get_description(self):
-        return self.soup.find("div", {"class": "mw-parser-output"}).findChildren("p", recursive=False)[0].text
+        if self.soup.find("div", {"class": "mw-parser-output"}).findChildren("p", recursive=False):
+            return self.soup.find("div", {"class": "mw-parser-output"}).findChildren("p", recursive=False)[0].text
+        return "\u200b"
 
     def get_url(self):
         return self.soup.find('meta', attrs={"name": "twitter:url"})['content']
