@@ -1,6 +1,7 @@
 # bot.py
 import os
 import traceback
+import time
 
 import discord
 import requests
@@ -30,15 +31,23 @@ async def on_ready():
 @client.event
 async def on_slash_command_error(ctx, ex):
     extext = str(ex)
-    embed = discord.Embed(title=extext.splitlines()[0],
-                          description=extext[len(extext.splitlines()[0]) + 1:],
-                          color=0xff0000,
-                          url=last_url)
-    embed.set_footer(text="This instance is hosted by " + HOST)
-    await client.get_channel(956879440418308096).send(embed=embed)
-    await client.get_channel(956879440418308096).send("```py\n" +
-                                                      ''.join(traceback.format_tb(tb=ex.__traceback__)) +
-                                                      "```")
+    if "429" in extext:
+        embed = discord.Embed(title="The execution has been rate limited",
+                              description="\u200b",
+                              color=0xffa500)
+        embed.set_footer(text="This instance is hosted by " + HOST)
+        time.sleep(10)
+        await ctx.send(embed=embed)
+    else:
+        embed = discord.Embed(title=extext.splitlines()[0],
+                              description=extext[len(extext.splitlines()[0]) + 1:],
+                              color=0xff0000,
+                              url=last_url)
+        embed.set_footer(text="This instance is hosted by " + HOST)
+        await client.get_channel(956879440418308096).send(embed=embed)
+        await client.get_channel(956879440418308096).send("```py\n" +
+                                                          ''.join(traceback.format_tb(tb=ex.__traceback__)) +
+                                                          "```")
 
 
 @client.event
@@ -56,21 +65,18 @@ async def ping(ctx):
 async def test(ctx, times):
     times = int(times)
     while times > 0:
-        article = Article()
-        await ctx.send(embed=article.get_embed(), components=[article.get_select()])
+        await Article().send(ctx)
         times -= 1
 
 
 @slash.slash(name="Random", description="Gets a random wiki article")
 async def random(ctx):
-    article = Article()
-    await ctx.send(embed=article.get_embed(), components=[article.get_select()])
+    await Article().send(ctx)
 
 
 @slash.slash(name="Query", description="Queries the wiki for the given search term")
 async def query(ctx, search_term):
-    article = Article("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term)
-    await ctx.send(embed=article.get_embed(), components=[article.get_select()])
+    await Article("https://seaofthieves.fandom.com/wiki/Special:Search?query=" + search_term).send(ctx)
 
 
 class Article:
@@ -87,6 +93,12 @@ class Article:
         else:
             self.soup = BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Random").text,
                                       'html.parser')
+
+    async def send(self, ctx):
+        if self.get_select():
+            await ctx.send(embed=self.get_embed(), components=[self.get_select()])
+        else:
+            await ctx.send(embed=self.get_embed())
 
     def get_embed(self, *args):
         global last_url
@@ -136,7 +148,10 @@ class Article:
     def get_select(self):
         options = []
         for span in self.soup.find("div", {"class": "mw-parser-output"}).findChildren("span", {"class": "mw-headline"}):
-            options.append(create_select_option(span.text, value=self.get_url() + ";" + span['id']))
+            if "h2" in str(span.parent):
+                options.append(create_select_option(span.text, value=self.get_url() + ";" + span['id']))
+        if len(options) < 1:
+            return
         select = create_select(
             options=options,
             placeholder="Further information",
@@ -155,9 +170,13 @@ class Article:
 
     def get_thumbnail(self):
         try:
-            return self.soup.find("table", {"class": "infoboxtable"}).findChildren("a")[0]['href']
+            if self.soup.find("table", {"class": "infoboxtable"}):
+                for a in self.soup.find("table", {"class": "infoboxtable"}).findChildren("a"):
+                    if a.findChildren("img") and "http" in a["href"]:
+                        return a["href"]
         except IndexError:
-            return False
+            pass
+        return False
 
 
 client.run(TOKEN)
