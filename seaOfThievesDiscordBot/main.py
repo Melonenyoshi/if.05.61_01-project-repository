@@ -56,8 +56,8 @@ async def on_slash_command_error(ctx, ex):
 @client.event
 async def on_component(ctx: ComponentContext):
     for value in ctx.values:
-        await ctx.send(embed=Article("https://seaofthieves.fandom.com/wiki/" +
-                                     value.split(';')[0]).get_embed(value.split(';')[1]))
+        await Article("https://seaofthieves.fandom.com/wiki/" +
+                      value.split(';')[0]).send(ctx, value.split(';')[1])
 
 
 @slash.slash(name="Ping", description="Returns the delay of the bot")
@@ -98,24 +98,24 @@ class Article:
             self.soup = BeautifulSoup(requests.get("https://seaofthieves.fandom.com/wiki/Special:Random").text,
                                       'html.parser')
 
-    async def send(self, ctx):
-        if self.get_select():
-            await ctx.send(embed=self.get_embed(), components=[self.get_select()])
+    async def send(self, ctx, *section):
+        if self.get_select(*section):
+            await ctx.send(embed=self.get_embed(*section), components=[self.get_select(*section)])
         else:
-            await ctx.send(embed=self.get_embed())
+            await ctx.send(embed=self.get_embed(*section))
 
-    def get_embed(self, *args):
+    def get_embed(self, *section):
         if self.soup is not None:
             global last_url
             last_url = self.get_url()
-            if args:
+            if section:
                 text = ""
-                for element in self.soup.find("span", {"id": args[0]}).parent.findNextSiblings():
+                for element in self.soup.find("span", {"id": section[0]}).parent.findNextSiblings():
                     if element.findChildren("span", {"class": "mw-headline"}) or (
                             element.has_attr('style') and "clear:both" in element['style']):
                         break
                     text += element.text
-                embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text,
+                embed = discord.Embed(title=self.soup.find("span", {"id": section[0]}).text,
                                       description=text,
                                       color=0x10938a)
             else:
@@ -152,13 +152,22 @@ class Article:
         embed.set_footer(text="This instance is hosted by " + HOST)
         return embed
 
-    def get_select(self):
+    def get_select(self, *section):
         if self.soup is None:
             return
         options = []
-        for span in self.soup.find("div", {"class": "mw-parser-output"}).findChildren("span", {"class": "mw-headline"}):
-            if "h2" in str(span.parent):
-                options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
+        if section:
+            h_level = int(str(self.soup.find("span", {"id": section[0]}).parent)[2])
+            for span in self.soup.find("span", {"id": section[0]}).findAllNext("span", {"class": "mw-headline"}):
+                if "h" + str(int(h_level + 1)) in str(span.parent):
+                    options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
+                if "h" + str(h_level) in str(span.parent):
+                    break
+        else:
+            for span in self.soup.find("div", {"class": "mw-parser-output"}).\
+                    findChildren("span", {"class": "mw-headline"}):
+                if "h2" in str(span.parent):
+                    options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
         if len(options) < 1:
             return
         select = create_select(
