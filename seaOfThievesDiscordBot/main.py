@@ -56,7 +56,8 @@ async def on_slash_command_error(ctx, ex):
 @client.event
 async def on_component(ctx: ComponentContext):
     for value in ctx.values:
-        await ctx.send(embed=Article(value.split(';')[0]).get_embed(value.split(';')[1]))
+        await ctx.send(embed=Article("https://seaofthieves.fandom.com/wiki/" +
+                                     value.split(';')[0]).get_embed(value.split(';')[1]))
 
 
 @slash.slash(name="Ping", description="Returns the delay of the bot")
@@ -114,7 +115,9 @@ class Article:
                             element.has_attr('style') and "clear:both" in element['style']):
                         break
                     text += element.text
-                embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text, description=text, color=0x10938a)
+                embed = discord.Embed(title=self.soup.find("span", {"id": args[0]}).text,
+                                      description=text,
+                                      color=0x10938a)
             else:
                 embed = discord.Embed(title=self.get_title(),
                                       description=self.get_description(),
@@ -155,7 +158,7 @@ class Article:
         options = []
         for span in self.soup.find("div", {"class": "mw-parser-output"}).findChildren("span", {"class": "mw-headline"}):
             if "h2" in str(span.parent):
-                options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[-37:]))
+                options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
         if len(options) < 1:
             return
         select = create_select(
