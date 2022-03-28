@@ -123,8 +123,8 @@ class Article:
                                       description=self.get_description(),
                                       url=self.get_url(),
                                       color=0x10938a)
-                if self.get_thumbnail() is not False:
-                    embed.set_thumbnail(url=self.get_thumbnail())
+                if self.get_image() is not False:
+                    embed.set_image(url=self.get_image())
                 has_found_beginning = False
                 if self.soup.find("table", {"class": "infoboxtable"}):
                     for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
@@ -179,7 +179,7 @@ class Article:
     def get_url(self):
         return self.soup.find('meta', attrs={"name": "twitter:url"})['content']
 
-    def get_thumbnail(self):
+    def get_image(self):
         try:
             if self.soup.find("table", {"class": "infoboxtable"}):
                 for a in self.soup.find("table", {"class": "infoboxtable"}).findChildren("a"):
