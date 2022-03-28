@@ -107,7 +107,7 @@ class Article:
     def get_embed(self, *section):
         if self.soup is not None:
             global last_url
-            last_url = self.get_url()
+            last_url = self.get_url(*section)
             if section:
                 text = ""
                 for element in self.soup.find("span", {"id": section[0]}).parent.findNextSiblings():
@@ -117,11 +117,12 @@ class Article:
                     text += element.text
                 embed = discord.Embed(title=self.soup.find("span", {"id": section[0]}).text,
                                       description=text,
+                                      url=self.get_url(*section),
                                       color=0x10938a)
             else:
                 embed = discord.Embed(title=self.get_title(),
                                       description=self.get_description(),
-                                      url=self.get_url(),
+                                      url=self.get_url(*section),
                                       color=0x10938a)
                 if self.get_image() is not False:
                     embed.set_image(url=self.get_image())
@@ -160,14 +161,14 @@ class Article:
             h_level = int(str(self.soup.find("span", {"id": section[0]}).parent)[2])
             for span in self.soup.find("span", {"id": section[0]}).findAllNext("span", {"class": "mw-headline"}):
                 if "h" + str(int(h_level + 1)) in str(span.parent):
-                    options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
+                    options.append(create_select_option(span.text, value=str(self.get_url(*section) + ";" + span['id'])[37:]))
                 if "h" + str(h_level) in str(span.parent):
                     break
         else:
             for span in self.soup.find("div", {"class": "mw-parser-output"}).\
                     findChildren("span", {"class": "mw-headline"}):
                 if "h2" in str(span.parent):
-                    options.append(create_select_option(span.text, value=str(self.get_url() + ";" + span['id'])[37:]))
+                    options.append(create_select_option(span.text, value=str(self.get_url(*section) + ";" + span['id'])[37:]))
         if len(options) < 1:
             return
         select = create_select(
@@ -185,7 +186,9 @@ class Article:
             return self.soup.find("div", {"class": "mw-parser-output"}).findChildren("p", recursive=False)[0].text
         return "\u200b"
 
-    def get_url(self):
+    def get_url(self, *section):
+        if section:
+            return self.soup.find('meta', attrs={"name": "twitter:url"})['content'] + "#" + str(section[0])
         return self.soup.find('meta', attrs={"name": "twitter:url"})['content']
 
     def get_image(self):
