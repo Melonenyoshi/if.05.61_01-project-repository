@@ -161,14 +161,16 @@ class Article:
             h_level = int(str(self.soup.find("span", {"id": section[0]}).parent)[2])
             for span in self.soup.find("span", {"id": section[0]}).findAllNext("span", {"class": "mw-headline"}):
                 if "h" + str(int(h_level + 1)) in str(span.parent):
-                    options.append(create_select_option(span.text, value=str(self.get_url(*section) + ";" + span['id'])[37:]))
+                    options.append(create_select_option(span.text,
+                                                        value=str(self.get_url(*section) + ";" + span['id'])[37:]))
                 if "h" + str(h_level) in str(span.parent):
                     break
         else:
             for span in self.soup.find("div", {"class": "mw-parser-output"}).\
                     findChildren("span", {"class": "mw-headline"}):
                 if "h2" in str(span.parent):
-                    options.append(create_select_option(span.text, value=str(self.get_url(*section) + ";" + span['id'])[37:]))
+                    options.append(create_select_option(span.text,
+                                                        value=str(self.get_url(*section) + ";" + span['id'])[37:]))
         if len(options) < 1:
             return
         select = create_select(
