@@ -1,4 +1,5 @@
 # bot.py
+import datetime
 import os
 import traceback
 import time
@@ -129,19 +130,21 @@ class Article:
                 has_found_beginning = False
                 if self.soup.find("table", {"class": "infoboxtable"}):
                     for tr in self.soup.find("table", {"class": "infoboxtable"}).findChildren("tr"):
-                        if not has_found_beginning:
-                            try:
-                                has_found_beginning = tr.findNext()['class'] == ['infoboxdetails']
-                            except KeyError:
-                                pass
-                        if has_found_beginning:
-                            if tr.findNext().has_attr('colspan'):
+                        if not has_found_beginning and \
+                                (tr.findChildren('img') or
+                                 "No image yet" in tr.text or
+                                 ("No image yet" not in self.soup.find("table", {"class": "infoboxtable"}).text and
+                                  (len(self.soup.find("table", {"class": "infoboxtable"}).findChildren('img')) == 0 or
+                                   "http" not in self.soup.find("table", {"class": "infoboxtable"}).findChildren('img')
+                                   [0].parent['href']))):
+                            has_found_beginning = True
+                        elif has_found_beginning:
+                            if len(tr.findChildren(recursive=False)) < 2:
                                 embed.add_field(name=tr.findNext().text, value="\u200b", inline=False)
                             else:
                                 if "Cost" in tr.findNext().text and tr.findChildren('img'):
                                     embed.add_field(name=tr.findNext().text,
-                                                    value=tr.findNext().findNext().text.strip() +
-                                                          " " +
+                                                    value=tr.findNext().findNext().text.strip() + " " +
                                                           tr.findChildren('a')[0]['title'],
                                                     inline=True)
                                 else:
@@ -150,6 +153,7 @@ class Article:
                                                     inline=True)
         else:
             embed = discord.Embed(title="Error 404", description="Article not found", color=0xff0000)
+            embed.timestamp = datetime.datetime.utcnow()
         embed.set_footer(text="This instance is hosted by " + HOST)
         return embed
 
