@@ -49,11 +49,11 @@ If the bot really takes off and we have the bot running on a small server, it li
 ### Milestones:
 | Milestone                                                                    	| Status      	| Finish Date 	|
 |------------------------------------------------------------------------------	|-------------	|-------------	|
-| The project environment is set up and fully functional for all team members  	| Not Started 	|6.1.2022      	|
-| The bot is running                                                           	| Not Started 	|10.2.2022     	|
-| The bot can process querys and output basic description for searched article 	| Not Started 	|             	|
+| The project environment is set up and fully functional for all team members  	| Done        	|6.1.2022      	|
+| The bot is running                                                           	| Done        	|10.2.2022     	|
+| The bot can process querys and output basic description for searched article 	| Done        	|             	|
 | The bot sends the image of an infotable                                      	| Not Started 	|             	|
-| The users get further information by reacting to the bots message            	| Not Started 	|             	|
+| The users get further information by reacting to the bots message            	| Done        	|             	|
 | The bot can dynamically integrate pictures into its messages                 	| Not Started 	|             	|
 
 ### Is there a Start Date?
